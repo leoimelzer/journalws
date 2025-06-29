@@ -1,5 +1,6 @@
-package com.journal.journalws.validator;
+package com.journal.journalws.annotation.entry;
 
+import com.journal.journalws.validation.entry.PrivacyCheckValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -14,7 +15,7 @@ import java.lang.annotation.Retention;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PrivacyCheck {
-    String message() default "Privacy value is invalid, it must be one of the following: [P (Public), F (Friends), X (Private), C (Custom)].";
+    String message() default "Privacy value is invalid, it must be one of the following: [PUBLIC, FRIENDS_ONLY, PRIVATE, CUSTOM].";
 
     Class<?>[] groups() default {};
 

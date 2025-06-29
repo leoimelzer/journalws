@@ -1,4 +1,4 @@
-package com.journal.journalws.dto;
+package com.journal.journalws.util.common;
 
 import org.springframework.http.HttpStatus;
 

@@ -1,0 +1,35 @@
+### List entries
+GET {{host}}/{{app_name}}/entry?userId={{entry.list.userId}}&privacy={{entry.list.privacy}}
+Accept: application/json
+
+### Read entry
+GET {{host}}/{{app_name}}/entry/{{entry.read.id}}
+Accept: application/json
+
+### Create entry
+POST {{host}}/{{app_name}}/entry
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": "{{entry.create.content}}",
+  "tags": ["{{entry.create.tags_1}}", "{{entry.create.tags_2}}"],
+  "privacy": "{{entry.create.privacy}}",
+  "allowed_users": ["{{entry.create.allowed_users1}}", "{{entry.create.allowed_users2}}"]
+}
+
+### Update entry
+PUT {{host}}/{{app_name}}/entry/{{entry.update.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "content": "{{entry.update.content}}",
+  "tags": null,
+  "privacy": "{{entry.update.privacy}}",
+  "allowed_sers": null
+}
+
+### Delete entry
+DELETE {{host}}/{{app_name}}/entry/{{entry.delete.id}}
+Accept: application/json

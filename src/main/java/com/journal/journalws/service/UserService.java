@@ -1,6 +1,6 @@
 package com.journal.journalws.service;
 
-import com.journal.journalws.dto.UserSaveRequest;
+import com.journal.journalws.dto.user.UserSaveRequest;
 import com.journal.journalws.model.User;
 import com.journal.journalws.repository.UserRepository;
 import jakarta.validation.ConstraintViolation;

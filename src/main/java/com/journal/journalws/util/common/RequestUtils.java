@@ -1,4 +1,4 @@
-package com.journal.journalws.util;
+package com.journal.journalws.util.common;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

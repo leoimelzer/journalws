@@ -1,6 +1,7 @@
-package com.journal.journalws.validator;
+package com.journal.journalws.validation.entry;
 
-import com.journal.journalws.enums.EntryPrivacy;
+import com.journal.journalws.annotation.entry.PrivacyCheck;
+import com.journal.journalws.enums.entry.Privacy;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -8,7 +9,7 @@ import java.util.Set;
 
 public class PrivacyCheckValidator implements ConstraintValidator<PrivacyCheck, String> {
 
-    private static final Set<String> PRIVACY = EntryPrivacy.getValueSet();
+    private static final Set<String> PRIVACY = Privacy.getValueSet();
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

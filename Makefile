@@ -7,4 +7,4 @@ docker/stop:
 	docker-compose down
 
 docker/clean:
-	docker volume rm docker_mongodb_data
+	docker volume rm journalws_mongodb_data

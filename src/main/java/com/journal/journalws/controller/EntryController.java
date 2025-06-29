@@ -1,7 +1,7 @@
 package com.journal.journalws.controller;
 
-import com.journal.journalws.dto.EntryListRequest;
-import com.journal.journalws.dto.EntrySaveRequest;
+import com.journal.journalws.dto.entry.EntryListRequest;
+import com.journal.journalws.dto.entry.EntrySaveRequest;
 import com.journal.journalws.model.Entry;
 import com.journal.journalws.service.EntryService;
 import jakarta.validation.Valid;

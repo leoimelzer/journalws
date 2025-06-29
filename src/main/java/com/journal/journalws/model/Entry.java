@@ -1,6 +1,6 @@
 package com.journal.journalws.model;
 
-import com.journal.journalws.enums.EntryPrivacy;
+import com.journal.journalws.enums.entry.Privacy;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,13 +15,9 @@ public class Entry {
     @Id
     private String id;
 
-    @Field("author_id")
+    @Field("user_id")
     @NotNull
-    private String authorId;
-
-    @Field("title")
-    @NotNull
-    private String title;
+    private String userId;
 
     @Field("content")
     @NotNull
@@ -34,6 +30,9 @@ public class Entry {
     @NotNull
     private String privacy;
 
+    @Field("allowed_users")
+    private List<String> allowedUsers;
+
     @Field("created_at")
     @NotNull
     private LocalDateTime createdAt;
@@ -45,21 +44,12 @@ public class Entry {
         return id;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
-
-    @SuppressWarnings("unused")
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @SuppressWarnings("unused")
@@ -80,12 +70,21 @@ public class Entry {
         this.tags = tags;
     }
 
-    public EntryPrivacy getPrivacy() {
-        return EntryPrivacy.getInstanceByValue(privacy);
+    public String getPrivacy() {
+        return privacy;
     }
 
-    public void setPrivacy(EntryPrivacy entryPrivacy) {
-        this.privacy = entryPrivacy.getValue();
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
+    }
+
+    @SuppressWarnings("unused")
+    public List<String> getAllowedUsers() {
+        return allowedUsers;
+    }
+
+    public void setAllowedUsers(List<String> allowedUsers) {
+        this.allowedUsers = allowedUsers;
     }
 
     @SuppressWarnings("unused")

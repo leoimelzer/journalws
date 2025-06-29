@@ -1,6 +1,6 @@
 package com.journal.journalws.controller;
 
-import com.journal.journalws.dto.UserSaveRequest;
+import com.journal.journalws.dto.user.UserSaveRequest;
 import com.journal.journalws.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

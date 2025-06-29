@@ -1,0 +1,21 @@
+### Create user
+POST {{host}}/{{app_name}}/user
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "{{user.create.name}}",
+  "email": "{{user.create.email}}",
+  "password": "{{user.create.password}}"
+}
+
+### Update user
+PUT {{host}}/{{app_name}}/user/{{user.update.id}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "{{user.update.name}}",
+  "email": "{{user.update.email}}",
+  "password": "{{user.update.password}}"
+}

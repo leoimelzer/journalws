@@ -1,12 +1,11 @@
 package com.journal.journalws.service;
 
-import com.journal.journalws.dto.EntryListRequest;
-import com.journal.journalws.dto.EntrySaveRequest;
-import com.journal.journalws.enums.EntryPrivacy;
+import com.journal.journalws.dto.entry.EntryListRequest;
+import com.journal.journalws.dto.entry.EntrySaveRequest;
 import com.journal.journalws.model.Entry;
 import com.journal.journalws.repository.EntryRepository;
 import com.journal.journalws.repository.UserRepository;
-import com.journal.journalws.util.RequestUtils;
+import com.journal.journalws.util.common.RequestUtils;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
@@ -40,13 +39,12 @@ public class EntryService {
                 .filter(entry -> {
                     boolean matches = true;
 
-                    if (request.getAuthorId() != null) {
-                        matches &= request.getAuthorId().equals(entry.getAuthorId());
+                    if (request.getUserId() != null) {
+                        matches &= request.getUserId().equals(entry.getUserId());
                     }
 
                     if (request.getPrivacy() != null) {
-                        EntryPrivacy privacy = EntryPrivacy.getInstanceByValue(request.getPrivacy());
-                        matches &= privacy != null && privacy.equals(entry.getPrivacy());
+                        matches &= request.getPrivacy() != null && request.getPrivacy().equals(entry.getPrivacy());
                     }
                     return matches;
                 })
@@ -55,21 +53,18 @@ public class EntryService {
 
     public String create(EntrySaveRequest request) {
         Entry entry = new Entry();
+        String privacy = request.getPrivacy();
 
         entry.setCreatedAt(LocalDateTime.now());
         entry.setContent(request.getContent());
-        entry.setTags(RequestUtils.getStringListByParameter(request.getTags()));
-        entry.setTitle(request.getTitle());
+        entry.setTags(request.getTags());
+        entry.setPrivacy(privacy);
+        entry.setAllowedUsers(request.getAllowedUsers());
 
-        EntryPrivacy privacy = EntryPrivacy.getInstanceByValue(request.getPrivacy());
-        if (privacy != null) {
-            entry.setPrivacy(privacy);
-        }
-
-        String authorId = "author-id"; // TODO: Aqui tem que pegar do usuário dono do token da requisição
+        String authorId = "686150fc7982371f7929845c"; // TODO: Aqui tem que pegar do usuário dono do token da requisição
         userRepository.findUserById(authorId).ifPresent(user -> {
             System.out.println(user.getName());
-            entry.setAuthorId(user.getId());
+            entry.setUserId(user.getId());
         });
 
         Set<ConstraintViolation<Entry>> violations = validator.validate(entry);
@@ -85,14 +80,13 @@ public class EntryService {
     public void update(String id, EntrySaveRequest request) {
         Entry entry = get(id);
 
-        entry.setTitle(request.getTitle());
+        String privacy = request.getPrivacy();
         entry.setContent(request.getContent());
-        entry.setTags(RequestUtils.getStringListByParameter(request.getTags()));
+        entry.setTags(request.getTags());
+        entry.setPrivacy(privacy);
 
-        EntryPrivacy privacy = EntryPrivacy.getInstanceByValue(request.getPrivacy());
-        if (privacy != null) {
-            entry.setPrivacy(privacy);
-        }
+        List<String> allowedUsers = request.getAllowedUsers();
+        entry.setAllowedUsers(allowedUsers);
 
         entry.setUpdatedAt(LocalDateTime.now());
 

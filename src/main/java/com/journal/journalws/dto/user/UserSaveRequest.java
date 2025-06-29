@@ -1,4 +1,4 @@
-package com.journal.journalws.dto;
+package com.journal.journalws.dto.user;
 
 import jakarta.validation.constraints.NotNull;
 
