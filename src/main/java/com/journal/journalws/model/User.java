@@ -2,7 +2,6 @@ package com.journal.journalws.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -15,11 +14,9 @@ public class User {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotNull
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)
-    @NotNull
     private String email;
 
     @Column(name = "password")

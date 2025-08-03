@@ -1,16 +1,17 @@
 version: '3'
 
 services:
-  mongodb:
-    image: mongo:8.0.3-noble
-    container_name: mongodb
+  postgres:
+    image: postgres:16
+    container_name: postgres
     ports:
-      - "27017:27017"
+      - "5432:5432"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: secret
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: journal
     volumes:
-      - mongodb_data:/data/db
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  mongodb_data:
+  postgres_data:

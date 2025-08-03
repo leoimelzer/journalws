@@ -16,11 +16,10 @@ public class Entry {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @ElementCollection
-    @CollectionTable(name = "entry_tags", joinColumns = @JoinColumn(name = "entry_id"))
     @Column(name = "tag")
     private List<String> tags;
 
@@ -28,7 +27,6 @@ public class Entry {
     private String privacy;
 
     @ElementCollection
-    @CollectionTable(name = "entry_allowed_users", joinColumns = @JoinColumn(name = "entry_id"))
     @Column(name = "user_id")
     private List<String> allowedUsers;
 
@@ -37,7 +35,6 @@ public class Entry {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 
     public Long getId() {
         return id;
