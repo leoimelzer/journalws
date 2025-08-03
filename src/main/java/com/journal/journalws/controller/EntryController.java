@@ -30,26 +30,26 @@ public class EntryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Entry> get(@PathVariable String id) {
+    public ResponseEntity<Entry> get(@PathVariable Long id) {
         Entry entry = entryService.get(id);
         return ResponseEntity.ok(entry);
     }
 
     @PostMapping
     public ResponseEntity<Void> create(@Valid @RequestBody EntrySaveRequest request) {
-        String id = entryService.create(request);
+        Long id = entryService.create(request);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody EntrySaveRequest request) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody EntrySaveRequest request) {
         entryService.update(id, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         entryService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

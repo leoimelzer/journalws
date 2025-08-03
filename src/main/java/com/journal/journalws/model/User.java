@@ -1,32 +1,32 @@
 package com.journal.journalws.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Objects;
 
-@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Field("name")
+    @Column(name = "name", nullable = false)
     @NotNull
     private String name;
 
-    @Field("email")
+    @Column(name = "email", nullable = false, unique = true)
     @NotNull
     private String email;
 
-    @Field("password")
+    @Column(name = "password")
     @JsonIgnore
     private String password;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -38,7 +38,6 @@ public class User {
         this.name = name;
     }
 
-    @SuppressWarnings("unused")
     public String getEmail() {
         return email;
     }
@@ -47,7 +46,6 @@ public class User {
         this.email = email;
     }
 
-    @SuppressWarnings("unused")
     public String getPassword() {
         return password;
     }
@@ -60,7 +58,8 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name);
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }

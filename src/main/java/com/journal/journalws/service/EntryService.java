@@ -28,7 +28,7 @@ public class EntryService {
     @Autowired
     private UserRepository userRepository;
 
-    public Entry get(String id) {
+    public Entry get(Long id) {
         return entryRepository.findById(id).orElse(null);
     }
 
@@ -51,7 +51,7 @@ public class EntryService {
                 .toList();
     }
 
-    public String create(EntrySaveRequest request) {
+    public Long create(EntrySaveRequest request) {
         Entry entry = new Entry();
         String privacy = request.getPrivacy();
 
@@ -61,11 +61,14 @@ public class EntryService {
         entry.setPrivacy(privacy);
         entry.setAllowedUsers(request.getAllowedUsers());
 
-        String authorId = "686150fc7982371f7929845c"; // TODO: Aqui tem que pegar do usuário dono do token da requisição
-        userRepository.findUserById(authorId).ifPresent(user -> {
-            System.out.println(user.getName());
-            entry.setUserId(user.getId());
-        });
+        Long userId = 1L; // TODO: Aqui tem que pegar do usuário dono do token da requisição
+        entry.setUserId(userId);
+
+        // TODO: Rever a lógica
+//        entryRepository.findByUserId(userId).ifPresent(e -> {
+//            System.out.println(e.getUserId());
+//            e.setUserId(e.getUserId());
+//        });
 
         Set<ConstraintViolation<Entry>> violations = validator.validate(entry);
 
@@ -77,7 +80,7 @@ public class EntryService {
         return entry.getId();
     }
 
-    public void update(String id, EntrySaveRequest request) {
+    public void update(Long id, EntrySaveRequest request) {
         Entry entry = get(id);
 
         String privacy = request.getPrivacy();
@@ -99,7 +102,7 @@ public class EntryService {
         entryRepository.save(entry);
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         Entry entry = get(id);
         entryRepository.delete(entry);
     }

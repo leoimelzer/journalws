@@ -20,11 +20,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User get(String id) {
+    public User get(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public String create(UserSaveRequest request) {
+    public Long create(UserSaveRequest request) {
         User user = new User();
 
         user.setName(request.getName());
@@ -42,7 +42,7 @@ public class UserService {
         return user.getId();
     }
 
-    public void update(String id, UserSaveRequest request) {
+    public void update(Long id, UserSaveRequest request) {
         User user = get(id);
 
         if (user == null) {
@@ -62,7 +62,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         User user = get(id);
         userRepository.delete(user);
     }

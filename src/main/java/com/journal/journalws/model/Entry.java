@@ -1,58 +1,56 @@
 package com.journal.journalws.model;
 
-import com.journal.journalws.enums.entry.Privacy;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document(collection = "entries")
+@Entity
+@Table(name = "entries")
 public class Entry {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Field("user_id")
-    @NotNull
-    private String userId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @Field("content")
-    @NotNull
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Field("tags")
+    @ElementCollection
+    @CollectionTable(name = "entry_tags", joinColumns = @JoinColumn(name = "entry_id"))
+    @Column(name = "tag")
     private List<String> tags;
 
-    @Field("privacy")
-    @NotNull
+    @Column(name = "privacy", nullable = false)
     private String privacy;
 
-    @Field("allowed_users")
+    @ElementCollection
+    @CollectionTable(name = "entry_allowed_users", joinColumns = @JoinColumn(name = "entry_id"))
+    @Column(name = "user_id")
     private List<String> allowedUsers;
 
-    @Field("created_at")
-    @NotNull
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Field("updated_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    @SuppressWarnings("unused")
     public String getContent() {
         return content;
     }
@@ -61,7 +59,6 @@ public class Entry {
         this.content = content;
     }
 
-    @SuppressWarnings("unused")
     public List<String> getTags() {
         return tags;
     }
@@ -78,7 +75,6 @@ public class Entry {
         this.privacy = privacy;
     }
 
-    @SuppressWarnings("unused")
     public List<String> getAllowedUsers() {
         return allowedUsers;
     }
@@ -87,7 +83,6 @@ public class Entry {
         this.allowedUsers = allowedUsers;
     }
 
-    @SuppressWarnings("unused")
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -96,7 +91,6 @@ public class Entry {
         this.createdAt = createdAt;
     }
 
-    @SuppressWarnings("unused")
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -104,5 +98,4 @@ public class Entry {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 }

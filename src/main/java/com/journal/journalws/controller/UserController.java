@@ -22,19 +22,19 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> create(@Valid @RequestBody UserSaveRequest request) {
-        String id = userService.create(request);
+        Long id = userService.create(request);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody UserSaveRequest request) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UserSaveRequest request) {
         userService.update(id, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
